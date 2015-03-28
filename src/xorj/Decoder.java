@@ -77,8 +77,13 @@ public class Decoder {
         for(int i=0;i<info.size();i++){
             FileChannel fc=channels.get(i);
             long pos=fc.position();
-            if(pos>info.get(i).end || pos>=info.get(i).size) return false;
-            int nread=fc.read(buffers.get(i));//TODO: change to prevent reading past selection end. #1
+            long end=info.get(i).end;
+            if(pos>end || pos>=info.get(i).size) return false;
+            long nleft=(end - pos)+1;
+            
+            int nread=fc.read(buffers.get(i));//If we read past the selection end, change nread so that the output is cropped. (Issue #1)
+            if(nread>nleft) nread=(int)nleft;//Implicit Long comparison: http://stackoverflow.com/questions/11143253
+                                             
             if(minread==-1 || nread<minread) minread=nread;
             if( nread < CHUNK) lastRead=true;
         }
