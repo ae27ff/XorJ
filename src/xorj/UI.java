@@ -23,6 +23,7 @@ public class UI extends javax.swing.JFrame {
         initComponents();
         jScrollPane1.setViewportView(graphPanel1);
         jbScan.setVisible(false);
+        jProgressBar1.setVisible(false);
     }
 
     /**
@@ -48,6 +49,7 @@ public class UI extends javax.swing.JFrame {
         jbScan = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jbClearFiles = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         filePanel1.setLayout(new java.awt.GridLayout(0, 1));
 
@@ -106,36 +108,41 @@ public class UI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jsFiles)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(36, 36, 36)
-                .addComponent(jLabel3)
-                .addGap(157, 157, 157))
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jbScan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbExtract)
-                .addGap(6, 6, 6))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbClearFiles)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel3)
+                        .addGap(145, 145, 145))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbClearFiles))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addComponent(jbScan)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbExtract)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jbClearFiles))
@@ -146,18 +153,20 @@ public class UI extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jsFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jsFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbScan)
-                    .addComponent(jbExtract))
-                .addGap(5, 5, 5))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbScan)
+                        .addComponent(jbExtract))
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -177,22 +186,34 @@ public class UI extends javax.swing.JFrame {
         updateGraph();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void prep(){
+        jbExtract.setEnabled(false);
+        jProgressBar1.setValue(0);
+        jProgressBar1.setVisible(true);
+    }
+    private void deprep(){
+        jProgressBar1.setVisible(false);
+        jbExtract.setEnabled(true);
+    }
+    
     private void jbExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExtractActionPerformed
+        prep();
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(FileEntry.dir);
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
             "Binaries", "bin", "dat");
         chooser.setFileFilter(filter);
         int retval = chooser.showSaveDialog(this);
-        if (retval != JFileChooser.APPROVE_OPTION) return;
+        if (retval != JFileChooser.APPROVE_OPTION) { deprep(); return; }
         FileEntry.dir=chooser.getCurrentDirectory();
         String outfile=chooser.getSelectedFile().getAbsolutePath();
-        
+        jProgressBar1.setValue(1);
         
         try{
             Decoder dec = new Decoder();
             dec.setSaveFile(outfile);
             dec.setParameters(files);
+            jProgressBar1.setValue(10);
             
             boolean read;
             do{
@@ -200,12 +221,12 @@ public class UI extends javax.swing.JFrame {
                 dec.xorAll();
                 dec.write();
             }while(read);
+            jProgressBar1.setValue(99);
             dec.clearParameters();
             dec=null;
             
         }catch(Exception e){System.out.println("Exception");}
-        
-        
+        deprep();
     }//GEN-LAST:event_jbExtractActionPerformed
 
     private void jbClearFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbClearFilesActionPerformed
@@ -309,6 +330,7 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbClearFiles;
     private javax.swing.JButton jbExtract;
