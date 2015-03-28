@@ -1,6 +1,7 @@
 package xorj;
 
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -8,6 +9,9 @@ import java.util.Random;
  */
 public class Common {
     public static Random rand=new Random();
+    public static void msgbox(int type,String title, String text){
+        JOptionPane.showMessageDialog(null, text, title, type);
+    }
     public static long stol(String s){
         try{ return Long.valueOf(s); }catch(Exception e){ return 0l; }
     }

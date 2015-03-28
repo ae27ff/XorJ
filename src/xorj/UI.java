@@ -5,10 +5,11 @@
  */
 package xorj;
 
-import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import static xorj.Common.msgbox;
 
 /**
  *
@@ -115,7 +116,7 @@ public class UI extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(36, 36, 36)
                         .addComponent(jLabel3)
@@ -132,11 +133,11 @@ public class UI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton2))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbScan)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbExtract)))))
+                                .addGap(18, 18, 18)
+                                .addComponent(jbExtract, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -173,7 +174,7 @@ public class UI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        addFileTest();
+        addFile();
         updateGraph();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -197,6 +198,7 @@ public class UI extends javax.swing.JFrame {
     }
     
     private void jbExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExtractActionPerformed
+        if(files.size()==0){ msgbox(JOptionPane.ERROR_MESSAGE,"File Error","You must add at least 1 file to extract/xor from."); return; }
         prep();
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(FileEntry.dir);
@@ -280,7 +282,15 @@ public class UI extends javax.swing.JFrame {
         jsFiles.repaint();
     }
     
-    public void addFileTest(){
+    private void onFilesUpdated(){
+        repaintFiles();
+        updateGraph();
+        if(files.size()==1) jbExtract.setText("Extract section");
+        if(files.size()>1) jbExtract.setText("XOR sections");
+    }
+    
+    
+    public void addFile(){
         jScrollPane1.setViewportView(graphPanel1);
         FileEntry fe = new FileEntry();
         boolean check=fe.select();
@@ -290,14 +300,13 @@ public class UI extends javax.swing.JFrame {
         filePanel1.add(fe);
         files.add(fe);
         jsFiles.setViewportView(filePanel1);
-        repaintFiles();
+        onFilesUpdated();
     }
     public void removeFileEntry(FileEntry fe){
         filePanel1.remove(fe);
         files.remove(fe);
         fe=null;
-        repaintFiles();
-        updateGraph();
+        onFilesUpdated();
     }
     public void updateGraph(){
         ArrayList<FileBar> bars=new ArrayList<FileBar>();
