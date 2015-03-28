@@ -78,7 +78,7 @@ public class Decoder {
             FileChannel fc=channels.get(i);
             long pos=fc.position();
             if(pos>info.get(i).end || pos>=info.get(i).size) return false;
-            int nread=fc.read(buffers.get(i));
+            int nread=fc.read(buffers.get(i));//TODO: change to prevent reading past selection end. #1
             if(minread==-1 || nread<minread) minread=nread;
             if( nread < CHUNK) lastRead=true;
         }
