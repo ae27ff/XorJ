@@ -40,6 +40,11 @@ public class Decoder {
     public void clearParameters() throws IOException{
         fos.close();
         fos=null;
+        
+        
+        for(FileChannel fc : channels) fc.close();
+        for(RandomAccessFile raf : raffiles) raf.close();
+        
         channels.clear();
         buffers.clear();
         raffiles.clear();
