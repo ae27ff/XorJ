@@ -37,9 +37,12 @@ public class Decoder {
     public Decoder(){
         
     }
-    public void clearParameters(){
+    public void clearParameters() throws IOException{
+        fos.close();
+        fos=null;
         channels.clear();
         buffers.clear();
+        raffiles.clear();
         files.clear();
         info.clear();
     }

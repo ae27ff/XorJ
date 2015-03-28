@@ -200,6 +200,8 @@ public class UI extends javax.swing.JFrame {
                 dec.xorAll();
                 dec.write();
             }while(read);
+            dec.clearParameters();
+            dec=null;
             
         }catch(Exception e){System.out.println("Exception");}
         
