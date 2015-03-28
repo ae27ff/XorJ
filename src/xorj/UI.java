@@ -22,6 +22,7 @@ public class UI extends javax.swing.JFrame {
     public UI() {
         initComponents();
         jScrollPane1.setViewportView(graphPanel1);
+        jbScan.setVisible(false);
     }
 
     /**
