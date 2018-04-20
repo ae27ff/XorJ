@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="363.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.github.crashdemons.xorj.FXMLDocumentController">
+   <children>
+      <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="XOR Overview">
+               <content>
+                  <AnchorPane>
+                     <children>
+                        <GridPane AnchorPane.bottomAnchor="178.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" maxWidth="158.0" />
+                            <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="NEVER" maxWidth="200.0" />
+                              <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="NEVER" maxWidth="219.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="219.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints fillHeight="false" vgrow="NEVER" />
+                            <RowConstraints fillHeight="false" vgrow="NEVER" />
+                            <RowConstraints fillHeight="false" vgrow="NEVER" />
+                              <RowConstraints fillHeight="false" vgrow="NEVER" />
+                              <RowConstraints fillHeight="false" vgrow="NEVER" />
+                              <RowConstraints fillHeight="false" minHeight="30.0" vgrow="NEVER" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Files Added:" />
+                              <Label prefHeight="17.0" prefWidth="50.0" text="0" GridPane.columnIndex="1" />
+                              <Button mnemonicParsing="false" text="Add File(s)" GridPane.columnIndex="2" />
+                              <Button mnemonicParsing="false" text="Clear All" GridPane.columnIndex="3" />
+                              <Label text="Generators Added:" GridPane.rowIndex="1" />
+                              <Label prefHeight="17.0" prefWidth="50.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Chunk Size:" GridPane.rowIndex="2" />
+                              <TextField prefHeight="25.0" prefWidth="50.0" promptText="Bytes" text="4096" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Total Chunks:" GridPane.rowIndex="3" />
+                              <Label prefHeight="17.0" prefWidth="50.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Button mnemonicParsing="false" text="Add Generator(s)" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Button mnemonicParsing="false" text="Clear All" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <Label text="Total Bytes" GridPane.rowIndex="4" />
+                              <Label prefHeight="17.0" prefWidth="100.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                           </children>
+                        </GridPane>
+                        <Button layoutX="462.0" layoutY="311.0" minHeight="24.0" minWidth="100.0" mnemonicParsing="false" prefWidth="100.0" text="XOR Data" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <ProgressBar layoutX="14.0" layoutY="200.0" minHeight="24.0" prefWidth="422.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+          <Tab text="File1.data" />
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
