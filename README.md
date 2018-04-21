@@ -1,2 +1,2 @@
 # XorJ
-Java multi-file binary XOR utility
+Java multi-file binary XOR utility - JavaFX prealpha
