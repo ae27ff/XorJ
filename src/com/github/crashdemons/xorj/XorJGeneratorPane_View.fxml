@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="201.0" prefWidth="511.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.crashdemons.xorj.XorJGeneratorPane_Controller">
+   <children>
+      <GridPane prefHeight="401.0" prefWidth="406.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="150.0" />
+            <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" minWidth="69.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints fillHeight="false" minHeight="20.0" vgrow="NEVER" />
+            <RowConstraints fillHeight="false" minHeight="20.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints fillHeight="false" minHeight="20.0" prefHeight="30.0" vgrow="NEVER" />
+            <RowConstraints fillHeight="false" minHeight="20.0" prefHeight="30.0" vgrow="NEVER" />
+        </rowConstraints>
+         <children>
+            <Label text="Data to Generate:" wrapText="true">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Seed Value (Random only)" wrapText="true" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Initial Byte Value" wrapText="true" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="inpByteValue" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <VBox layoutX="14.0" layoutY="20.0" prefHeight="69.0" prefWidth="168.0" GridPane.columnIndex="1">
+               <children>
+                  <RadioButton fx:id="radGenConst" graphicTextGap="5.0" mnemonicParsing="false" onAction="#handleRadioGenerator" prefWidth="155.0" selected="true" text="Constant Byte Value">
+                     <padding>
+                        <Insets right="5.0" top="5.0" />
+                     </padding>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tgGenerators" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="radGenInc" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleRadioGenerator" prefWidth="162.0" text="Incremental Byte Value" toggleGroup="$tgGenerators" />
+                  <RadioButton fx:id="radGenRand" graphicTextGap="5.0" mnemonicParsing="false" onAction="#handleRadioGenerator" prefWidth="162.0" text="Random Byte Value" toggleGroup="$tgGenerators" />
+                  <RadioButton fx:id="radGenInvert" mnemonicParsing="false" onAction="#handleRadioGenerator" prefWidth="150.0" text="Invert Data Mask" toggleGroup="$tgGenerators" />
+               </children>
+            </VBox>
+            <TextField fx:id="inpSeed" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </GridPane>
+   </children>
+</AnchorPane>

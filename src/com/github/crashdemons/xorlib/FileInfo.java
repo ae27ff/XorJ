@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xorj;
+package com.github.crashdemons.xorlib;
 
 /**
  *
@@ -14,10 +14,10 @@ public class FileInfo {
     public long end;
     public long size;
     public String filename;
-    public FileInfo(FileEntry fe){
+    /*public FileInfo(FileEntry fe){
         start=fe.getStart();
         end=fe.getEnd();
         size=fe.getFilesize();
         filename=fe.getFilename();
-    }
+    }*/
 }

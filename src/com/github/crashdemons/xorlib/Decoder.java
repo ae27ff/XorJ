@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xorj;
+package com.github.crashdemons.xorlib;
 
+import com.github.crashdemons.xorlib.FileInfo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -54,7 +55,7 @@ public class Decoder {
     public void setSaveFile(String filename) throws FileNotFoundException{
         fos = new FileOutputStream(filename);
     }
-    public void setParameters(ArrayList<FileEntry> fes) throws FileNotFoundException, IOException{
+/*    public void setParameters(ArrayList<FileEntry> fes) throws FileNotFoundException, IOException{
         for(FileEntry fe : fes){
             FileInfo fi=new FileInfo(fe);
             File file = new File(fi.filename);  // initialize somewhere
@@ -70,7 +71,7 @@ public class Decoder {
             raffiles.add(raf);
             channels.add(fc);
         }
-    }
+    }*/
     public boolean readAll() throws IOException{
         minread=-1;
         boolean lastRead=false;

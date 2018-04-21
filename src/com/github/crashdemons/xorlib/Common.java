@@ -1,4 +1,4 @@
-package xorj;
+package com.github.crashdemons.xorlib;
 
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
  * @author crashdemons <crashdemons -at- github.com>
  */
 public class Common {
-    public static Random rand=new Random();
+    //public static Random rand=new Random();
     public static void msgbox(int type,String title, String text){
         JOptionPane.showMessageDialog(null, text, title, type);
     }
