@@ -38,12 +38,12 @@ public class Decoder {
         
     }
     public void clearParameters() throws IOException{
-        fos.close();
+        if(fos!=null) fos.close();
         fos=null;
         
         
-        for(FileChannel fc : channels) fc.close();
-        for(RandomAccessFile raf : raffiles) raf.close();
+        for(FileChannel fc : channels) if(fc!=null) fc.close();
+        for(RandomAccessFile raf : raffiles) if(raf!=null) raf.close();
         
         channels.clear();
         buffers.clear();
@@ -56,34 +56,56 @@ public class Decoder {
     }
     public void setParameters(ArrayList<FileEntry> fes) throws FileNotFoundException, IOException{
         for(FileEntry fe : fes){
-            FileInfo fi=new FileInfo(fe);
-            File file = new File(fi.filename);  // initialize somewhere
             byte[] myBytes = new byte[CHUNK];
             ByteBuffer buffer=ByteBuffer.wrap(myBytes);  // initialize somewhere
-            RandomAccessFile raf = new RandomAccessFile(file, "r");
-            FileChannel fc = raf.getChannel();
-            fc.position(fi.start);  // position to the byte you want to start reading
-            
+            FileInfo fi=new FileInfo(fe);
+            if(fi.isConstByteValue()){
+                Arrays.fill(myBytes, (byte) fi.getConstByteValue());
+                files.add(null);
+                raffiles.add(null);
+                channels.add(null);
+            }else{
+                File file = new File(fi.filename);  // initialize somewhere
+                RandomAccessFile raf = new RandomAccessFile(file, "r");
+                FileChannel fc = raf.getChannel();
+                fc.position(fi.start);  // position to the byte you want to start reading
+
+                files.add(file);
+                raffiles.add(raf);
+                channels.add(fc);
+            }
             info.add(fi);
-            files.add(file);
             buffers.add(buffer);
-            raffiles.add(raf);
-            channels.add(fc);
         }
     }
     public boolean readAll() throws IOException{
         minread=-1;
         boolean lastRead=false;
         for(int i=0;i<info.size();i++){
-            FileChannel fc=channels.get(i);
-            long pos=fc.position();
-            long end=info.get(i).end;
-            if(pos>end || pos>=info.get(i).size) return false;
-            long nleft=(end - pos)+1;
-            
-            int nread=fc.read(buffers.get(i));//If we read past the selection end, change nread so that the output is cropped. (Issue #1)
+            int nread = 0;
+            long nleft = 0;
+            if(info.get(i).isConstByteValue()){
+                long pos = info.get(i).constBytePos;
+                long end = info.get(i).end;
+                
+                if(pos>end || pos>=info.get(i).size) return false;
+                nleft=(end - pos)+1;
+                
+                //read CHUNK bytes into buffers.get(i); 
+                // NOTE: this buffer is preloaded with the byte value in setParameters.
+                // We only handle position book-keeping here for constant byte-value inputs.
+                nread = CHUNK;
+            }else{
+                FileChannel fc=channels.get(i);
+                long pos=fc.position();
+                long end=info.get(i).end;
+                
+                if(pos>end || pos>=info.get(i).size) return false;
+                nleft=(end - pos)+1;
+
+                nread=fc.read(buffers.get(i));//If we read past the selection end, change nread so that the output is cropped. (Issue #1)
+            }
             if(nread>nleft) nread=(int)nleft;//Implicit Long comparison: http://stackoverflow.com/questions/11143253
-                                             
             if(minread==-1 || nread<minread) minread=nread;
             if( nread < CHUNK) lastRead=true;
         }

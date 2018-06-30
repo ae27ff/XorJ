@@ -10,6 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import static xorj.Common.msgbox;
+import static xorj.Common.stoi;
 
 /**
  *
@@ -51,13 +52,14 @@ public class UI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jbClearFiles = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
+        jButton3 = new javax.swing.JButton();
 
         filePanel1.setLayout(new java.awt.GridLayout(0, 1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("XorJ");
 
-        jButton1.setText("+");
+        jButton1.setText("+ File");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
@@ -104,6 +106,13 @@ public class UI extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("+ Constant");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,9 +123,11 @@ public class UI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(36, 36, 36)
                         .addComponent(jLabel3)
@@ -152,7 +163,8 @@ public class UI extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jsFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
@@ -227,7 +239,10 @@ public class UI extends javax.swing.JFrame {
             dec.clearParameters();
             dec=null;
             
-        }catch(Exception e){System.out.println("Exception");}
+        }catch(Exception e){
+            msgbox(JOptionPane.ERROR_MESSAGE,"File Exception","An exception has occurred while handling the files:\r\n"+e.toString());
+            System.out.println("Exception: "+e.toString());
+        }
         deprep();
     }//GEN-LAST:event_jbExtractActionPerformed
 
@@ -238,6 +253,18 @@ public class UI extends javax.swing.JFrame {
         repaintFiles();
         updateGraph();
     }//GEN-LAST:event_jbClearFilesActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        String inputValue = JOptionPane.showInputDialog("Please input a byte value to use as a constant xor input (in decimal)\r\nValid values are 0-255."); 
+        int nbyteval = stoi(inputValue);
+        if(nbyteval<0 || nbyteval>255){
+            msgbox(JOptionPane.ERROR_MESSAGE,"Input Error","Invalid byte value.");
+        }else{
+            addConstFile(nbyteval);
+            updateGraph();
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,6 +316,18 @@ public class UI extends javax.swing.JFrame {
         if(files.size()>1) jbExtract.setText("XOR sections");
     }
     
+    public void addConstFile(int n){
+        jScrollPane1.setViewportView(graphPanel1);
+        FileEntry fe = new FileEntry();
+        boolean check=fe.selectConstant(n);
+        System.out.println(check);
+        if(!check){ fe=null; return; }
+        fe.ui=this;
+        filePanel1.add(fe);
+        files.add(fe);
+        jsFiles.setViewportView(filePanel1);
+        onFilesUpdated();
+    }
     
     public void addFile(){
         jScrollPane1.setViewportView(graphPanel1);
@@ -334,6 +373,7 @@ public class UI extends javax.swing.JFrame {
     private xorj.GraphPanel graphPanel1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
