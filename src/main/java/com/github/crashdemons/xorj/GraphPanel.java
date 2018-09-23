@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xorj;
+package com.github.crashdemons.xorj;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-import static xorj.Common.rand;
+import static com.github.crashdemons.xorj.Common.rand;
 
 /**
  *

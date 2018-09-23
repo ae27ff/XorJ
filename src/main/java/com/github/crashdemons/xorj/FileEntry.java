@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xorj;
+package com.github.crashdemons.xorj;
 
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import static xorj.Common.stol;
-import static xorj.Common.stoi;
+import static com.github.crashdemons.xorj.Common.stol;
+import static com.github.crashdemons.xorj.Common.stoi;
 
 /**
  *
@@ -112,13 +112,19 @@ public class FileEntry extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     
+   
+    public static long calcFileSize(String filename){
+        if(filename.startsWith("byte://const/")){
+            return 4294967296l;
+        }else return (new File(filename)).length();
+    }
     
     public String getFilename(){
         return jtFilename.getText();
     }
     public long getFilesize(){
         String filename=jtFilename.getText();
-        return (new File(filename)).length();
+        return calcFileSize(filename);
     }
     public long getStart(){
         return stol(jtStart.getText());
@@ -149,7 +155,7 @@ public class FileEntry extends javax.swing.JPanel {
         validatePositions(jtFilename.getText());
     }
     private void validatePositions(String filename){
-        long length = (new File(filename)).length();
+        long length = calcFileSize(filename);
         long lstart=stol(jtStart.getText());                                       
         long lend=stol(jtEnd.getText());
         if(lstart<0) lstart=0;
@@ -195,11 +201,19 @@ public class FileEntry extends javax.swing.JPanel {
     }//GEN-LAST:event_jbRemoveActionPerformed
 
     public boolean setFile(String filename){
-        long length = (new File(filename)).length();
+        long length = calcFileSize(filename);
         if(length==0) return false;
         jtFilename.setText(filename);
         jtEnd.setText( String.valueOf(length-1) );
         return true;
+    }
+    public boolean selectConstant(int n){
+        String path = "byte://const/"+n;
+        dir = new File(path);
+        //jtFilename.setText(path);
+        //jtEnd.setText("2147483647");
+        //return true;
+        return setFile(path);
     }
     public boolean select(){
         JFileChooser chooser = new JFileChooser();

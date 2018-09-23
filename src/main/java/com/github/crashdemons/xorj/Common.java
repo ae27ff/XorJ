@@ -1,4 +1,4 @@
-package xorj;
+package com.github.crashdemons.xorj;
 
 import java.util.Random;
 import javax.swing.JOptionPane;

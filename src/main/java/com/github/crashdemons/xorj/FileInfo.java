@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xorj;
+package com.github.crashdemons.xorj;
+
+import static com.github.crashdemons.xorj.Common.stoi;
 
 /**
  *
@@ -14,10 +16,23 @@ public class FileInfo {
     public long end;
     public long size;
     public String filename;
+    
+    public long constBytePos;
+    
     public FileInfo(FileEntry fe){
         start=fe.getStart();
         end=fe.getEnd();
         size=fe.getFilesize();
         filename=fe.getFilename();
+        constBytePos=0l;
+    }
+    public boolean isConstByteValue(){
+        return filename.startsWith("byte://const/");
+    }
+     public int getConstByteValue(){
+        if(isConstByteValue()){
+            String svalue = filename.substring("byte://const/".length());
+            return stoi(svalue);
+        }else return 0;
     }
 }
