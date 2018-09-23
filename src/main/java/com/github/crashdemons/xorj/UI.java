@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xorj;
+package com.github.crashdemons.xorj;
 
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import static xorj.Common.msgbox;
-import static xorj.Common.stoi;
+import static com.github.crashdemons.xorj.Common.msgbox;
+import static com.github.crashdemons.xorj.Common.stoi;
 
 /**
  *
@@ -37,8 +37,8 @@ public class UI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        filePanel1 = new xorj.FilePanel();
-        graphPanel1 = new xorj.GraphPanel();
+        filePanel1 = new com.github.crashdemons.xorj.FilePanel();
+        graphPanel1 = new com.github.crashdemons.xorj.GraphPanel();
         jsFiles = new javax.swing.JScrollPane();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -369,8 +369,8 @@ public class UI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private xorj.FilePanel filePanel1;
-    private xorj.GraphPanel graphPanel1;
+    private com.github.crashdemons.xorj.FilePanel filePanel1;
+    private com.github.crashdemons.xorj.GraphPanel graphPanel1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

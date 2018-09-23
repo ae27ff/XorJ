@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xorj;
+package com.github.crashdemons.xorj;
 
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import static xorj.Common.stol;
-import static xorj.Common.stoi;
+import static com.github.crashdemons.xorj.Common.stol;
+import static com.github.crashdemons.xorj.Common.stoi;
 
 /**
  *

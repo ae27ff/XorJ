@@ -2,14 +2,14 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Container class="xorj.FilePanel" name="filePanel1">
+    <Container class="com.github.crashdemons.xorj.FilePanel" name="filePanel1">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
         <Property name="columns" type="int" value="1"/>
         <Property name="rows" type="int" value="0"/>
       </Layout>
     </Container>
-    <Component class="xorj.GraphPanel" name="graphPanel1">
+    <Component class="com.github.crashdemons.xorj.GraphPanel" name="graphPanel1">
     </Component>
   </NonVisualComponents>
   <Properties>
