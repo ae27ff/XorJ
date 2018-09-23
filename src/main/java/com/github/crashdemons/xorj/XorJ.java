@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package com.github.crashdemons.xorj;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
  *
@@ -24,5 +25,21 @@ public class XorJ {
         FilePanel jp = new FilePanel();
 
         ui.setVisible(true);
+        
+        InputStream resource = XorJ.class.getResourceAsStream("/application.properties");
+        if(resource==null){//internal resource not found
+            System.err.println("WARNING: Internal resource not found - application name may not display correctly.");
+        }else{
+            Properties props = new Properties();
+            try{
+                props.load(resource);
+                String name = props.getProperty("NAME");
+                String ver = props.getProperty("VERSION");
+                ui.setTitle(name+" - "+ver);
+            }catch(IOException e){
+                System.err.println("WARNING: Internal resource reading failed - application name may not display correctly.");
+            }
+        }
+        
     }
 }
