@@ -151,10 +151,11 @@ public class FileEntry extends javax.swing.JPanel {
         return getLength(lstart,lend);
     }
     
-    private void validatePositions(){
-        validatePositions(jtFilename.getText());
+    private void setValidPositions(){
+        setValidPositions(jtFilename.getText());
     }
-    private void validatePositions(String filename){
+    
+    private void setValidPositions(String filename){
         long length = calcFileSize(filename);
         long lstart=stol(jtStart.getText());                                       
         long lend=stol(jtEnd.getText());
@@ -178,7 +179,7 @@ public class FileEntry extends javax.swing.JPanel {
                     String.valueOf(l));
         l = stol(s);
         setLength(l);
-        validatePositions();
+        setValidPositions();
     }//GEN-LAST:event_jbLengthActionPerformed
 
     private void jtFilenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtFilenameActionPerformed
