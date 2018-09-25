@@ -159,6 +159,7 @@ public class FileEntry extends javax.swing.JPanel {
         long lstart=stol(jtStart.getText());                                       
         long lend=stol(jtEnd.getText());
         if(lstart<0) lstart=0;
+        if(lstart>=length) lstart=length-1;
         if(lend>=length) lend=length-1;
         if(length==0) lend=0;
         jtStart.setText(String.valueOf(lstart));
