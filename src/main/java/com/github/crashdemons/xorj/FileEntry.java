@@ -151,6 +151,21 @@ public class FileEntry extends javax.swing.JPanel {
         return getLength(lstart,lend);
     }
     
+    public FileEntryValidationResult validatePositions(){
+        long length = calcFileSize(jtFilename.getText());
+        long lstart=stol(jtStart.getText());                                       
+        long lend=stol(jtEnd.getText());
+        
+        if(length==0) return FileEntryValidationResult.LENGTH_ZERO;
+        if(lstart<0) return FileEntryValidationResult.START_POSITION_LOW;
+        if(lstart>=length) return FileEntryValidationResult.START_POSITION_HIGH;
+        if(lstart>lend) return FileEntryValidationResult.START_POSITION_BEYOND_END;
+        
+        if(lend<0) return FileEntryValidationResult.END_POSITION_LOW;
+        if(lend>=length) return FileEntryValidationResult.END_POSITION_HIGH;
+        return FileEntryValidationResult.NO_ERROR;
+    }
+    
     private void setValidPositions(){
         setValidPositions(jtFilename.getText());
     }
@@ -168,10 +183,18 @@ public class FileEntry extends javax.swing.JPanel {
     }
     
     private void jbLengthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLengthActionPerformed
+        long size = getFilesize();
+        long start=getStart();
+        long remaining = size-start;
         long l=getLength();
+        
+        
         String s = (String)JOptionPane.showInputDialog(
                     this,
-                    "Please input the length in bytes from the starting position",
+                    "Please input the length of data to select \r\n(from the starting position "+start+").\r\n"+
+                        "The valid range is from 1 - "+remaining+"\r\n\r\n"+
+                        "File: "+getFilename()+"\r\n"+
+                        "File Length: "+size,
                     "Input data length",
                     JOptionPane.PLAIN_MESSAGE,
                     null,

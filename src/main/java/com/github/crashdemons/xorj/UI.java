@@ -223,6 +223,18 @@ public class UI extends javax.swing.JFrame {
         String outfile=chooser.getSelectedFile().getAbsolutePath();
         jProgressBar1.setValue(1);
         
+        for(FileEntry file : files){
+            FileEntryValidationResult result = file.validatePositions();
+            if(result != FileEntryValidationResult.NO_ERROR){
+                msgbox(JOptionPane.ERROR_MESSAGE,"Selection Error",
+                        result.getMessage()+"\r\n"+
+                        "  File: "+file.getFilename()
+                );
+                deprep();
+                return;
+            }
+        }
+        
         try{
             Decoder dec = new Decoder();
             dec.setSaveFile(outfile);
