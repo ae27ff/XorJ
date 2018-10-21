@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import static com.github.crashdemons.xorj.Common.stol;
 import static com.github.crashdemons.xorj.Common.stoi;
+import static com.github.crashdemons.xorj.Common.msgbox;
 
 /**
  *
@@ -241,16 +242,21 @@ public class FileEntry extends javax.swing.JPanel {
         return setFile(path);
     }
     public boolean select(){
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "Binaries", "bin", "dat");
-        chooser.setCurrentDirectory(dir);
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-           dir=chooser.getCurrentDirectory();//save directory for next file select;
-           String path=chooser.getSelectedFile().getAbsolutePath();
-           return setFile(path);
+        try{
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Binaries", "bin", "dat");
+            chooser.setCurrentDirectory(dir);
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showOpenDialog(this);
+            if(returnVal == JFileChooser.APPROVE_OPTION) {
+               dir=chooser.getCurrentDirectory();//save directory for next file select;
+               String path=chooser.getSelectedFile().getAbsolutePath();
+               return setFile(path);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            msgbox(JOptionPane.ERROR_MESSAGE,"File Selection Error","An exception occurred while selecting a file:\r\n"+e.toString());
         }
         return false;
     }

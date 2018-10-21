@@ -343,16 +343,21 @@ public class UI extends javax.swing.JFrame {
     }
     
     public void addFile(){
-        jScrollPane1.setViewportView(graphPanel1);
-        FileEntry fe = new FileEntry();
-        boolean check=fe.select();
-        System.out.println(check);
-        if(!check){ fe=null; return; }
-        fe.ui=this;
-        filePanel1.add(fe);
-        files.add(fe);
-        jsFiles.setViewportView(filePanel1);
-        onFilesUpdated();
+        try{
+            jScrollPane1.setViewportView(graphPanel1);
+            FileEntry fe = new FileEntry();
+            boolean check=fe.select();
+            System.out.println(check);
+            if(!check){ fe=null; return; }
+            fe.ui=this;
+            filePanel1.add(fe);
+            files.add(fe);
+            jsFiles.setViewportView(filePanel1);
+            onFilesUpdated();
+        }catch(Exception e){
+            e.printStackTrace();
+            msgbox(JOptionPane.ERROR_MESSAGE,"File Selection Error","An exception occurred while adding files:\r\n"+e.toString());
+        }
     }
     public void removeFileEntry(FileEntry fe){
         filePanel1.remove(fe);
