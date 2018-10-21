@@ -269,8 +269,9 @@ public class UI extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         String inputValue = JOptionPane.showInputDialog("Please input a byte value to use as a constant xor input (in decimal)\r\nValid values are 0-255."); 
+        if(inputValue==null) return;//user cancelled input
         int nbyteval = stoi(inputValue);
-        if(nbyteval<0 || nbyteval>255){
+        if(inputValue.isEmpty() || nbyteval<0 || nbyteval>255){
             msgbox(JOptionPane.ERROR_MESSAGE,"Input Error","Invalid byte value.");
         }else{
             addConstFile(nbyteval);
