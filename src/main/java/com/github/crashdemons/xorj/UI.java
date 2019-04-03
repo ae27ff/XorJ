@@ -223,6 +223,18 @@ public class UI extends javax.swing.JFrame {
         String outfile=chooser.getSelectedFile().getAbsolutePath();
         jProgressBar1.setValue(1);
         
+        for(FileEntry file : files){
+            FileEntryValidationResult result = file.validatePositions();
+            if(result != FileEntryValidationResult.NO_ERROR){
+                msgbox(JOptionPane.ERROR_MESSAGE,"Selection Error",
+                        result.getMessage()+"\r\n"+
+                        "  File: "+file.getFilename()
+                );
+                deprep();
+                return;
+            }
+        }
+        
         try{
             Decoder dec = new Decoder();
             dec.setSaveFile(outfile);
@@ -257,8 +269,9 @@ public class UI extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         String inputValue = JOptionPane.showInputDialog("Please input a byte value to use as a constant xor input (in decimal)\r\nValid values are 0-255."); 
+        if(inputValue==null) return;//user cancelled input
         int nbyteval = stoi(inputValue);
-        if(nbyteval<0 || nbyteval>255){
+        if(inputValue.isEmpty() || nbyteval<0 || nbyteval>255){
             msgbox(JOptionPane.ERROR_MESSAGE,"Input Error","Invalid byte value.");
         }else{
             addConstFile(nbyteval);
@@ -330,16 +343,21 @@ public class UI extends javax.swing.JFrame {
     }
     
     public void addFile(){
-        jScrollPane1.setViewportView(graphPanel1);
-        FileEntry fe = new FileEntry();
-        boolean check=fe.select();
-        System.out.println(check);
-        if(!check){ fe=null; return; }
-        fe.ui=this;
-        filePanel1.add(fe);
-        files.add(fe);
-        jsFiles.setViewportView(filePanel1);
-        onFilesUpdated();
+        try{
+            jScrollPane1.setViewportView(graphPanel1);
+            FileEntry fe = new FileEntry();
+            boolean check=fe.select();
+            System.out.println(check);
+            if(!check){ fe=null; return; }
+            fe.ui=this;
+            filePanel1.add(fe);
+            files.add(fe);
+            jsFiles.setViewportView(filePanel1);
+            onFilesUpdated();
+        }catch(Exception e){
+            e.printStackTrace();
+            msgbox(JOptionPane.ERROR_MESSAGE,"File Selection Error","An exception occurred while adding files:\r\n"+e.toString());
+        }
     }
     public void removeFileEntry(FileEntry fe){
         filePanel1.remove(fe);

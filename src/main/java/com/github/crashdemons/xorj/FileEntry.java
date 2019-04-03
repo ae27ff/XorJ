@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import static com.github.crashdemons.xorj.Common.stol;
 import static com.github.crashdemons.xorj.Common.stoi;
+import static com.github.crashdemons.xorj.Common.msgbox;
 
 /**
  *
@@ -151,14 +152,31 @@ public class FileEntry extends javax.swing.JPanel {
         return getLength(lstart,lend);
     }
     
-    private void validatePositions(){
-        validatePositions(jtFilename.getText());
+    public FileEntryValidationResult validatePositions(){
+        long length = calcFileSize(jtFilename.getText());
+        long lstart=stol(jtStart.getText());                                       
+        long lend=stol(jtEnd.getText());
+        
+        if(length==0) return FileEntryValidationResult.LENGTH_ZERO;
+        if(lstart<0) return FileEntryValidationResult.START_POSITION_LOW;
+        if(lstart>=length) return FileEntryValidationResult.START_POSITION_HIGH;
+        if(lstart>lend) return FileEntryValidationResult.START_POSITION_BEYOND_END;
+        
+        if(lend<0) return FileEntryValidationResult.END_POSITION_LOW;
+        if(lend>=length) return FileEntryValidationResult.END_POSITION_HIGH;
+        return FileEntryValidationResult.NO_ERROR;
     }
-    private void validatePositions(String filename){
+    
+    private void setValidPositions(){
+        setValidPositions(jtFilename.getText());
+    }
+    
+    private void setValidPositions(String filename){
         long length = calcFileSize(filename);
         long lstart=stol(jtStart.getText());                                       
         long lend=stol(jtEnd.getText());
         if(lstart<0) lstart=0;
+        if(lstart>=length) lstart=length-1;
         if(lend>=length) lend=length-1;
         if(length==0) lend=0;
         jtStart.setText(String.valueOf(lstart));
@@ -166,10 +184,18 @@ public class FileEntry extends javax.swing.JPanel {
     }
     
     private void jbLengthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLengthActionPerformed
+        long size = getFilesize();
+        long start=getStart();
+        long remaining = size-start;
         long l=getLength();
+        
+        
         String s = (String)JOptionPane.showInputDialog(
                     this,
-                    "Please input the length in bytes from the starting position",
+                    "Please input the length of data to select \r\n(from the starting position "+start+").\r\n"+
+                        "The valid range is from 1 - "+remaining+"\r\n\r\n"+
+                        "File: "+getFilename()+"\r\n"+
+                        "File Length: "+size,
                     "Input data length",
                     JOptionPane.PLAIN_MESSAGE,
                     null,
@@ -177,7 +203,7 @@ public class FileEntry extends javax.swing.JPanel {
                     String.valueOf(l));
         l = stol(s);
         setLength(l);
-        validatePositions();
+        setValidPositions();
     }//GEN-LAST:event_jbLengthActionPerformed
 
     private void jtFilenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtFilenameActionPerformed
@@ -216,16 +242,21 @@ public class FileEntry extends javax.swing.JPanel {
         return setFile(path);
     }
     public boolean select(){
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "Binaries", "bin", "dat");
-        chooser.setCurrentDirectory(dir);
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-           dir=chooser.getCurrentDirectory();//save directory for next file select;
-           String path=chooser.getSelectedFile().getAbsolutePath();
-           return setFile(path);
+        try{
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Binaries", "bin", "dat");
+            chooser.setCurrentDirectory(dir);
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showOpenDialog(this);
+            if(returnVal == JFileChooser.APPROVE_OPTION) {
+               dir=chooser.getCurrentDirectory();//save directory for next file select;
+               String path=chooser.getSelectedFile().getAbsolutePath();
+               return setFile(path);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            msgbox(JOptionPane.ERROR_MESSAGE,"File Selection Error","An exception occurred while selecting a file:\r\n"+e.toString());
         }
         return false;
     }
